@@ -8,10 +8,9 @@
   <style>
     :root{
       --bg:#0b0b0b; --card:#1e1e1e; --accent:#e11b4b; --muted:#c9c3a6; --radius:16px;
-      --glass: rgba(255,255,255,0.03);
       font-family: Inter, 'Segoe UI', Roboto, Arial, sans-serif;
     }
-    *{box-sizing:border-box}
+    *{box-sizing:border-box;outline:none;-webkit-tap-highlight-color:transparent;user-select:none}
     html,body{height:100%}
     body{
       margin:0; background:linear-gradient(180deg,#050505 0%, #0b0710 60%); color:white;
@@ -19,7 +18,7 @@
     }
     .container{max-width:920px;margin:32px auto;padding:20px}header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
 .back{display:inline-flex;align-items:center;gap:8px;color:white;opacity:.95;text-decoration:none}
-.title{font-weight:700;font-size:20px;background:linear-gradient(90deg,var(--accent),#ff6780);-webkit-background-clip:text;background-clip:text;color:transparent}
+.title{font-weight:700;font-size:20px;color:var(--accent)}
 
 .cards{display:grid;grid-template-columns:1fr;gap:18px}
 @media(min-width:720px){.cards{grid-template-columns:1fr}}
@@ -35,11 +34,9 @@
 .card ul{margin:10px 0 0 18px;padding:0;color:var(--muted);font-family:monospace}
 .buy-btn{background:var(--accent);border:none;padding:10px 18px;border-radius:999px;color:white;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(225,27,75,0.12)}
 
-/* Modal */
 .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;padding:20px}
-.modal{background:linear-gradient(180deg,#111  , #0f0f12);border-radius:14px;padding:22px;max-width:520px;width:100%;border:1px solid rgba(255,255,255,0.04)}
+.modal{background:linear-gradient(180deg,#111,#0f0f12);border-radius:14px;padding:22px;max-width:520px;width:100%;border:1px solid rgba(255,255,255,0.04)}
 .modal h4{margin:0 0 8px;color:var(--accent)}
-.form-row{margin:10px 0;display:flex;gap:8px}
 label{font-size:13px;color:#ddd;display:block;margin-bottom:6px}
 input[type=text],input[type=email],select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff}
 .radio-group{display:flex;gap:10px}
@@ -47,10 +44,8 @@ input[type=text],input[type=email],select{width:100%;padding:10px;border-radius:
 .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
 .btn-secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;color:#ddd;cursor:pointer}
 
-footer{margin-top:30px;color:#777;font-size:13px;text-align:center}
-
-/* small helper */
 .small{font-size:13px;color:#c6b69b}
+footer{margin-top:30px;color:#777;font-size:13px;text-align:center}
 
   </style>
 </head>
@@ -58,7 +53,7 @@ footer{margin-top:30px;color:#777;font-size:13px;text-align:center}
   <div class="container">
     <header>
       <a class="back" href="#" onclick="history.back();return false;">⬅ Kembali</a>
-      <div class="title">Buy Acess</div>
+      <div class="title">Buy Access</div>
     </header><main>
   <div class="cards">
     <article class="card" data-tier="member" data-month="35000" data-perm="100000">
@@ -69,9 +64,7 @@ footer{margin-top:30px;color:#777;font-size:13px;text-align:center}
           <li>100k IDR / Permanent</li>
         </ul>
       </div>
-      <div>
-        <button class="buy-btn" onclick="openBuy(this.closest('.card'))">BUY</button>
-      </div>
+      <button class="buy-btn" onclick="openBuy(this.closest('.card'))">BUY</button>
     </article>
 
     <article class="card" data-tier="reseller" data-month="40000" data-perm="140000">
@@ -82,9 +75,7 @@ footer{margin-top:30px;color:#777;font-size:13px;text-align:center}
           <li>140k IDR / Permanent</li>
         </ul>
       </div>
-      <div>
-        <button class="buy-btn" onclick="openBuy(this.closest('.card'))">BUY</button>
-      </div>
+      <button class="buy-btn" onclick="openBuy(this.closest('.card'))">BUY</button>
     </article>
 
     <article class="card" data-tier="vip" data-month="60000" data-perm="200000">
@@ -95,56 +86,48 @@ footer{margin-top:30px;color:#777;font-size:13px;text-align:center}
           <li>200k IDR / Permanent</li>
         </ul>
       </div>
-      <div>
-        <button class="buy-btn" onclick="openBuy(this.closest('.card'))">BUY</button>
-      </div>
+      <button class="buy-btn" onclick="openBuy(this.closest('.card'))">BUY</button>
     </article>
   </div>
 </main>
 
-<!-- Modal -->
-<div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true">
-  <div class="modal" role="document">
+<div id="modalBackdrop" class="modal-backdrop">
+  <div class="modal">
     <h4>Beli Akses</h4>
     <div class="small" id="selectedTier">Pilih paket</div>
 
-    <div style="margin-top:10px">
-      <label for="name">Nama</label>
-      <input id="name" type="text" placeholder="Nama lengkap" />
-    </div>
-    <div style="margin-top:10px">
-      <label for="email">Email / WA</label>
-      <input id="email" type="email" placeholder="email@contoh.com / +628" />
+    <label for="name">Nama</label>
+    <input id="name" type="text" placeholder="Nama lengkap" />
+
+    <label for="email">Email / WA</label>
+    <input id="email" type="email" placeholder="email@contoh.com / +628" />
+
+    <label>Pilih Durasi</label>
+    <div class="radio-group">
+      <label><input type="radio" name="duration" value="month" checked> Bulanan</label>
+      <label><input type="radio" name="duration" value="perm"> Permanen</label>
     </div>
 
-    <div class="form-row">
-      <div style="flex:1">
-        <label>Pilih Durasi</label>
-        <div class="radio-group">
-          <label><input type="radio" name="duration" value="month" checked/> Bulanan</label>
-          <label><input type="radio" name="duration" value="perm" /> Permanen</label>
-        </div>
-      </div>
-      <div style="width:140px">
-        <label>Jumlah</label>
-        <select id="quantity"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="5">5</option></select>
-      </div>
-    </div>
+    <label>Jumlah</label>
+    <select id="quantity"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="5">5</option></select>
 
     <div class="total">Total: <span id="totalPrice">-</span></div>
+
+    <div id="qrisSection" style="display:none;margin-top:15px;text-align:center">
+      <p class="small">Silakan scan QRIS Dana di bawah ini untuk pembayaran:</p>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/QRIS_logo.svg" alt="QRIS Dana" width="150" />
+      <p class="small">Setelah membayar, kirim bukti transfer ke WhatsApp <b>081227211842</b>.</p>
+      <a class="buy-btn" href="https://wa.me/6281227211842" target="_blank">Kirim Bukti via WhatsApp</a>
+    </div>
 
     <div class="actions">
       <button class="btn-secondary" onclick="closeModal()">Batal</button>
       <button class="buy-btn" id="checkoutBtn">Lanjutkan Bayar</button>
     </div>
-
-    <div class="small" style="margin-top:12px">Kami menerima transfer bank, pulsa, dan pembayaran digital. Ini contoh desain demo — lakukan integrasi backend untuk pembayaran nyata.</div>
   </div>
 </div>
 
-<footer>
-  &copy; 2025 Jiyy Developer — Versi demo. Hubungi support untuk aktivasi akun.
-</footer>
+<footer>&copy; 2025 Jiyy Developer — Demo versi QRIS Dana</footer>
 
   </div>  <script>
     let current = null;
@@ -156,11 +139,11 @@ footer{margin-top:30px;color:#777;font-size:13px;text-align:center}
       document.getElementById('selectedTier').textContent = tier.toUpperCase() + ' — ' + (month/1000) + 'k / bln | ' + (perm/1000)+'k permanen';
       document.getElementById('modalBackdrop').style.display = 'flex';
       recalc();
+      document.getElementById('qrisSection').style.display = 'none';
     }
     function closeModal(){
       document.getElementById('modalBackdrop').style.display = 'none';
     }
-    // recalc price
     function recalc(){
       if(!current) return;
       const month = Number(current.dataset.month);
@@ -170,40 +153,17 @@ footer{margin-top:30px;color:#777;font-size:13px;text-align:center}
       const price = (duration === 'month' ? month : perm) * qty;
       document.getElementById('totalPrice').textContent = formatIDR(price);
     }
-    function formatIDR(n){
-      return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ' IDR';
-    }
-
-    // events
+    function formatIDR(n){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' IDR'}
     document.getElementById('quantity').addEventListener('change', recalc);
     document.querySelectorAll('input[name="duration"]').forEach(r=>r.addEventListener('change', recalc));
 
-    // Checkout simulation
     document.getElementById('checkoutBtn').addEventListener('click', function(){
       const name = document.getElementById('name').value.trim();
       const contact = document.getElementById('email').value.trim();
-      if(!name || !contact){
-        alert('Isi Nama dan Email/WA terlebih dahulu.');
-        return;
-      }
-      // prepare payload to send to backend (example)
-      const payload = {
-        tier: current.dataset.tier,
-        duration: document.querySelector('input[name="duration"]:checked').value,
-        qty: Number(document.getElementById('quantity').value),
-        price: document.getElementById('totalPrice').textContent,
-        name, contact
-      };
-
-      // In a real app: POST /api/create-order -> get invoice -> redirect to gateway
-      console.log('Order payload (kirim ke backend):', payload);
-      alert('Order dibuat (demo). Cek console untuk payload. Integrasikan backend untuk proses bayar & aktivasi.');
-      closeModal();
+      if(!name || !contact){alert('Isi Nama dan Kontak terlebih dahulu.');return;}
+      document.getElementById('qrisSection').style.display = 'block';
     });
 
-    // close modal when clicking outside
-    document.getElementById('modalBackdrop').addEventListener('click', function(e){
-      if(e.target === this) closeModal();
-    });
+    document.getElementById('modalBackdrop').addEventListener('click', function(e){if(e.target===this)closeModal();});
   </script></body>
 </html>
